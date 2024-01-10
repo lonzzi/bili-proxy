@@ -39,7 +39,7 @@ const handler: ExportedHandler = {
 			}
 
 			request = new Request(url, request);
-			request.headers.delete('Origin');
+			request.headers.set('Origin', 'https://www.bilibili.com');
 			request.headers.set('Referer', 'https://www.bilibili.com');
 
 			let response = await fetch(request);
@@ -54,7 +54,7 @@ const handler: ExportedHandler = {
 
 		if (API_URL && API_URL !== 'favicon.ico') {
 			try {
-				if (whitelist && !whitelist.includes(requestOrigin)) {
+				if (requestOrigin && !whitelist.includes(requestOrigin)) {
 					return new Response('Not allowed', {
 						status: 403,
 						statusText: 'Forbidden',
